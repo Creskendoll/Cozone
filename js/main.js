@@ -1,5 +1,5 @@
-var rawDatas = {AC:{}, Light:{}, Temp:{}, SetP:{}};
-
+var rawDatas = {AC:{}, Light:{}, Temp:{}, SetP:{}, Total:{}};
+var ch1
 function getYearly(raw,N,type){ // getYearly(rawDatas.AC, 10,  "sum");
     var years=[]; for(i=0;i<N;i++) years[i]=[0,0];
     var minYear=new Date().getYear() - N + 1 + 1900;
@@ -80,83 +80,83 @@ Date.prototype.getWeek = function() {
 
 
 $(document).ready(function () {
+    //window.myLine.update();
 
-    getLighting("2000-01-01", "2100-01-01", (response)=>{rawDatas.Light=response.data;});
-    getAC("2000-01-01", "2100-01-01", (response)=>{rawDatas.AC=response.data;});
-    getTemp("2000-01-01", "2100-01-01", (response)=>{rawDatas.Temp=response.data;});
-    getSetPoint("2000-01-01", "2100-01-01", (response)=>{rawDatas.SetP=response.data;});
-
-    var ctx = document.getElementById('myChart1_2').getContext('2d');
-    ch1=new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-                'August', 'September', 'October', 'November', 'December'],
-            datasets: [{
-                label: '# of Votes',
-                data: [1,2,3,4,5],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }, {
-                label: '# of Votes2',
-                data: [2,3,4,5,6],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
+    getLighting("2000-01-01", "2100-01-01", (response)=>{
+        rawDatas.Light=response.data;
+        if(timeStep=="m")  myData=getMonthly(rawDatas.Light, 2019, "sum");
+        if(timeStep=="w")  myData=getWeekly(rawDatas.Light, 2019, "sum");
+        if(timeStep=="d")  myData=getDaily(rawDatas.Light, "2019-05", "sum");
+        if(timeStep=="y")  myData=getYearly(rawDatas.Light, 10 , "sum");
+        makeChart(document.getElementById("myChart2_1"), myData, "Energy Usage From Lighting (KWh)");
+    });
+    getAC("2000-01-01", "2100-01-01", (response)=>{
+        rawDatas.AC=response.data;
+        if(timeStep=="m")  myData=getMonthly(rawDatas.AC, 2019, "sum");
+        if(timeStep=="w")  myData=getWeekly(rawDatas.AC, 2019, "sum");
+        if(timeStep=="d")  myData=getDaily(rawDatas.AC, "2019-05", "sum");
+        if(timeStep=="y")  myData=getYearly(rawDatas.AC, 10 , "sum");
+        makeChart(document.getElementById("myChart1_3"),myData, "Energy Usage From Air Conditioner (KWh)");
+    });
+    getTemp("2000-01-01", "2100-01-01", (response)=>{
+        rawDatas.Temp=response.data;
+        if(timeStep=="m")  myData=getMonthly(rawDatas.Temp, 2019, "avg");
+        if(timeStep=="w")  myData=getWeekly(rawDatas.Temp, 2019, "avg");
+        if(timeStep=="d")  myData=getDaily(rawDatas.Temp, "2019-05", "avg");
+        if(timeStep=="y")  myData=getYearly(rawDatas.Temp, 10 , "avg");
+        makeChart(document.getElementById("myChart2_2"),myData, "Temperature (C)");
+    });
+    getTotal("2000-01-01", "2100-01-01", (response)=>{
+        rawDatas.Total=response.data;
+        if(timeStep=="m")  myData=getMonthly(rawDatas.Total, 2019, "sum");
+        if(timeStep=="w")  myData=getWeekly(rawDatas.Total, 2019, "sum");
+        if(timeStep=="d")  myData=getDaily(rawDatas.Total, "2019-05", "sum");
+        if(timeStep=="y")  myData=getYearly(rawDatas.Total, 10 , "sum");
+        makeChart(document.getElementById("myChart1_2"),myData, "Total Consumption (KWh)");
     });
 
-    var ctx = document.getElementById('myChart2_2').getContext('2d');
-    ch2=new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-            datasets: [{
-                label: '# of Votes3',
-                data: [12, 19, 33, 533, 2, 3],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-    var dataAC, graphAC = [[], [], [], []];
-
-    function createChartsAC(response) {
-
-
-        
-    }
 
 
 });
+var timeStep="m";
+
+var Labels= {months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            weeks:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31','32','33','34','35','36','37','38','39','40','41','42','43','44','45','46','47','48','49','50','51','52','53'],
+            days:['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'],
+            years:['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019']};
+
+function makeChart(ctx, myData, dataName){
+    if(timeStep=="m"){
+        xlabels=Labels.months;
+    }
+    if(timeStep=="w"){
+        xlabels=Labels.weeks;
+    }
+    if(timeStep=="d"){
+        xlabels=Labels.days;
+    }
+    if(timeStep=="y"){
+        xlabels=Labels.years;
+    }
+
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: xlabels,
+            datasets: [{
+                label: dataName,
+                data: myData,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+}
