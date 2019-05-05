@@ -88,7 +88,7 @@ $(document).ready(function () {
         if(timeStep=="w")  myData=getWeekly(rawDatas.Light, 2019, "sum");
         if(timeStep=="d")  myData=getDaily(rawDatas.Light, "2019-05", "sum");
         if(timeStep=="y")  myData=getYearly(rawDatas.Light, 10 , "sum");
-        makeChart(document.getElementById("myChart2_1"), myData, "Energy Usage From Lighting (KWh)");
+        makeChart(document.getElementById("myChart2_3"), myData, "Energy Usage From Lighting (KWh)");
     });
     getAC("2000-01-01", "2100-01-01", (response)=>{
         rawDatas.AC=response.data;
@@ -96,15 +96,7 @@ $(document).ready(function () {
         if(timeStep=="w")  myData=getWeekly(rawDatas.AC, 2019, "sum");
         if(timeStep=="d")  myData=getDaily(rawDatas.AC, "2019-05", "sum");
         if(timeStep=="y")  myData=getYearly(rawDatas.AC, 10 , "sum");
-        makeChart(document.getElementById("myChart1_3"),myData, "Energy Usage From Air Conditioner (KWh)");
-    });
-    getTemp("2000-01-01", "2100-01-01", (response)=>{
-        rawDatas.Temp=response.data;
-        if(timeStep=="m")  myData=getMonthly(rawDatas.Temp, 2019, "avg");
-        if(timeStep=="w")  myData=getWeekly(rawDatas.Temp, 2019, "avg");
-        if(timeStep=="d")  myData=getDaily(rawDatas.Temp, "2019-05", "avg");
-        if(timeStep=="y")  myData=getYearly(rawDatas.Temp, 10 , "avg");
-        makeChart(document.getElementById("myChart2_2"),myData, "Temperature (C)");
+        makeChart(document.getElementById("myChart2_2"),myData, "Energy Usage From Air Conditioner (KWh)");
     });
     getTotal("2000-01-01", "2100-01-01", (response)=>{
         rawDatas.Total=response.data;
