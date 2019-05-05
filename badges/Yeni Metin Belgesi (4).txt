@@ -1,0 +1,65 @@
+Newbie					75XP
+Using the app first time
+
+Beginner				150XP
+Using the app for a week
+
+Competent				225XP
+Using the app for a month
+
+Proficient				400XP
+Using the app for a season
+
+Expert					750XP
+Using the app for a year
+
+Master					1000XP
+Using the app for 5 years
+
+
+
+Tracker					200XP
+Open the app to check your activity for a week.
+
+Family Guy				50XP
+Live with at least 3 other people
+
+The Average!				100XP
+Consume as the average
+
+Environmentalist			100XP
+Enter top 10 in Rankings
+
+
+
+Ambassador of Environment		200XP
+Stay in top 10 for 1 week
+
+King of Environment			500XP
+Stay in top 10 for 1 month
+
+Emperor of Environment			1000XP
+Stay in top 10 for 1 year
+
+Legendary Trio				300XP
+Get in the top 3
+
+GGWP					500XP
+Be #1!
+
+We trusted you!				-5XP
+Fall from #1
+
+
+
+Forgetful				-100XP
+Be in the last 10%
+
+Extravagant				-500XP
+Be in the last 5%
+
+Enemy of Environment			-1000XP
+Be in the last 1%
+
+Murderer of World!			-10000XP
+Be the last.
